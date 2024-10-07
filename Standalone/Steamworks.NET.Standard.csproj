@@ -24,39 +24,21 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows|x86'">
-		<OutputPath>bin\x86\Windows\</OutputPath>
-		<DefineConstants>TRACE;STEAMWORKS_WIN;STEAMWORKS_X86</DefineConstants>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+		<OutputPath>bin\AnyCPU\Universal\</OutputPath>
+		<DefineConstants>TRACE;STEAMWORKS_UNIVERSAL</DefineConstants>
 		<Optimize>true</Optimize>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<PlatformTarget>x86</PlatformTarget>
+		<PlatformTarget>AnyCPU</PlatformTarget>
 		<ErrorReport>prompt</ErrorReport>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OSX-Linux|x86'">
-		<OutputPath>bin\x86\OSX-Linux\</OutputPath>
-		<DefineConstants>TRACE;STEAMWORKS_LIN_OSX;STEAMWORKS_X86</DefineConstants>
-		<Optimize>true</Optimize>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+		<OutputPath>bin\AnyCPU\Universal\</OutputPath>
+		<DefineConstants>TRACE;STEAMWORKS_UNIVERSAL</DefineConstants>
+		<Optimize>false</Optimize>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<PlatformTarget>x86</PlatformTarget>
-		<ErrorReport>prompt</ErrorReport>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows|x64'">
-		<OutputPath>bin\x64\Windows\</OutputPath>
-		<DefineConstants>TRACE;STEAMWORKS_WIN;STEAMWORKS_X64</DefineConstants>
-		<Optimize>true</Optimize>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<PlatformTarget>x64</PlatformTarget>
-		<ErrorReport>prompt</ErrorReport>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OSX-Linux|x64'">
-		<OutputPath>bin\x64\OSX-Linux\</OutputPath>
-		<DefineConstants>TRACE;STEAMWORKS_LIN_OSX;STEAMWORKS_X64</DefineConstants>
-		<Optimize>true</Optimize>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<PlatformTarget>x64</PlatformTarget>
+		<PlatformTarget>AnyCPU</PlatformTarget>
 		<ErrorReport>prompt</ErrorReport>
 	</PropertyGroup>
 
