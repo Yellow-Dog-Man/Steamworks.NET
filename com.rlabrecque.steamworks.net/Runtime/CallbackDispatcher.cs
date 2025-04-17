@@ -27,17 +27,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace Steamworks {
+
+	public delegate void SteamworksExceptionHandler(Exception e);
 	public static class CallbackDispatcher {
-		public delegate void SteamworksExceptionHandler(Exception e);
 
 		// We catch exceptions inside callbacks and reroute them here.
 		// For some reason throwing an exception causes RunCallbacks() to break otherwise.
 		// If you have a custom ExceptionHandler in your engine you can register it by setting ExceptionHandler
-		private static void DefaultExceptionHandler(Exception e) {
+		public static void DefaultExceptionHandler(Exception e) {
 #if UNITY_STANDALONE
 			UnityEngine.Debug.LogException(e);
 #elif STEAMWORKS_WIN || STEAMWORKS_LIN_OSX
@@ -60,15 +60,6 @@ namespace Steamworks {
 		private static object m_sync = new object();
 		private static IntPtr m_pCallbackMsg;
 		private static int m_initCount;
-
-		#if UNITY_2019_3_OR_NEWER
-		// In case of disabled Domain Reload, reset static members before entering Play Mode.
-		[UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
-		private static void InitOnPlayMode()
-		{
-			m_initCount = 0;
-		}
-		#endif
 
 		public static bool IsInitialized {
 			get { return m_initCount > 0; }
@@ -109,11 +100,7 @@ namespace Steamworks {
 			}
 		}
 
-		/// <summary>
-		/// Private API for Awaitable implementation. Before using it you should read CallbackDispatcher.cs.
-		/// </summary>
-		[EditorBrowsable(EditorBrowsableState.Never)] // hide this method from intellisense
-		public static void Register(SteamAPICall_t asyncCall, CallResult cr) {
+		internal static void Register(SteamAPICall_t asyncCall, CallResult cr) {
 			lock (m_sync) {
 				List<CallResult> callResultsList;
 				if (!m_registeredCallResults.TryGetValue((ulong)asyncCall, out callResultsList)) {
@@ -138,11 +125,7 @@ namespace Steamworks {
 			}
 		}
 
-		/// <summary>
-		/// Private API for Awaitable implementation. Before using it you should read CallbackDispatcher.cs.
-		/// </summary>
-		[EditorBrowsable(EditorBrowsableState.Never)] // hide this method from intellisense
-		public static void Unregister(SteamAPICall_t asyncCall, CallResult cr) {
+		internal static void Unregister(SteamAPICall_t asyncCall, CallResult cr) {
 			lock (m_sync) {
 				List<CallResult> callResultsList;
 				if (m_registeredCallResults.TryGetValue((ulong)asyncCall, out callResultsList)) {
@@ -210,14 +193,12 @@ namespace Steamworks {
 						}
 						Marshal.FreeHGlobal(pTmpCallResult);
 					} else {
-						List<Callback> callbacksCopy = null;
-						lock (m_sync) {
-							List<Callback> callbacks = null;
-							if (callbacksRegistry.TryGetValue(callbackMsg.m_iCallback, out callbacks)) {
+						List<Callback> callbacks;
+						if (callbacksRegistry.TryGetValue(callbackMsg.m_iCallback, out callbacks)) {
+							List<Callback> callbacksCopy;
+							lock (m_sync) {
 								callbacksCopy = new List<Callback>(callbacks);
 							}
-						}
-						if (callbacksCopy != null) {
 							foreach (var callback in callbacksCopy) {
 								callback.OnRunCallback(callbackMsg.m_pubParam);
 							}
@@ -232,10 +213,6 @@ namespace Steamworks {
 		}
 	}
 
-	/// <summary>
-	/// Private API for Steamworks.NET callback system, before inherit it you should read CallbackDispatcher.cs
-	/// </summary>
-	[EditorBrowsable(EditorBrowsableState.Never)] // hide this class from intellisense
 	public abstract class Callback {
 		public abstract bool IsGameServer { get; }
 		internal abstract Type GetCallbackType();
@@ -335,14 +312,10 @@ namespace Steamworks {
 		}
 	}
 
-	/// <summary>
-	/// Private API for Steamworks.NET callback system, before inherit it you should read CallbackDispatcher.cs
-	/// </summary>
-	[EditorBrowsable(EditorBrowsableState.Never)] // hide this class from intellisense
 	public abstract class CallResult {
-		internal protected abstract Type GetCallbackType();
-		internal protected abstract void OnRunCallResult(IntPtr pvParam, bool bFailed, ulong hSteamAPICall);
-		internal protected abstract void SetUnregistered();
+		internal abstract Type GetCallbackType();
+		internal abstract void OnRunCallResult(IntPtr pvParam, bool bFailed, ulong hSteamAPICall);
+		internal abstract void SetUnregistered();
 	}
 
 	public sealed class CallResult<T> : CallResult, IDisposable {
@@ -414,11 +387,11 @@ namespace Steamworks {
 				CallbackDispatcher.Unregister(m_hAPICall, this);
 		}
 
-		internal protected override Type GetCallbackType() {
+		internal override Type GetCallbackType() {
 			return typeof(T);
 		}
 
-		internal protected override void OnRunCallResult(IntPtr pvParam, bool bFailed, ulong hSteamAPICall_) {
+		internal override void OnRunCallResult(IntPtr pvParam, bool bFailed, ulong hSteamAPICall_) {
 			SteamAPICall_t hSteamAPICall = (SteamAPICall_t)hSteamAPICall_;
 			if (hSteamAPICall == m_hAPICall) {
 				try {
@@ -430,7 +403,7 @@ namespace Steamworks {
 			}
 		}
 
-		internal protected override void SetUnregistered() {
+		internal override void SetUnregistered() {
 			m_hAPICall = SteamAPICall_t.Invalid;
 		}
 	}
