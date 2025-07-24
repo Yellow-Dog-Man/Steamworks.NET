@@ -14,7 +14,7 @@ jobs:
   dotnet-build:
     uses: Yellow-Dog-Man/composite-actions-templates/.github/workflows/generic-dotnet-build.yml@main
     with:
-      dotnet_project: Standalone/Steamworks.NET.Standard
+      dotnet_project: Standalone/Steamworks.NET.Standard.sln
       artifact_name: steamworks-standard
       dotnet_version: 9.0.x
       dotnet_build_path: '**/bin/**/**/**/*.dll'
