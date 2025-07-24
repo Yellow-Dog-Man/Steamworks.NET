@@ -13,11 +13,8 @@ on:
 jobs:
   dotnet-build:
     uses: Yellow-Dog-Man/composite-actions-templates/.github/workflows/generic-dotnet-build.yml@main
-    defaults:
-      run:
-        working-directory: ./Standalone
     with:
-      dotnet_project: Steamworks.NET.Standard
+      dotnet_project: Standalone/Steamworks.NET.Standard
       artifact_name: steamworks-standard
       dotnet_version: 9.0.x
-      dotnet_build_path: 'bin/**/**/**/*.dll'
+      dotnet_build_path: '**/bin/**/**/**/*.dll'
