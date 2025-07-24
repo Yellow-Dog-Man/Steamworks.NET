@@ -4,27 +4,18 @@ on:
   push:
     paths-ignore:
       - '**/*.md'
-    branches:
-      - master
   pull_request:
     branches:
       - master
     paths-ignore:
       - '**/*.md'
-  workflow_dispatch:
 
 jobs:
-  build:
-    # 2019, has our .NET needs, latest does not
-    runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: ./Standalone
-    steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 9.0.x
-    - name: Build
-      run: dotnet build -t:BatchBuild Steamworks.NET.Standard.sln
+  dotnet-build:
+    uses: Yellow-Dog-Man/composite-actions-templates/.github/workflows/generic-dotnet-build.yml@main
+    with:
+      dotnet_project: Standalone/Steamworks.NET.Standard.sln
+      artifact_name: steamworks-standard
+      dotnet_version: 9.0.x
+      dotnet_build_path: '**/bin/**/**/**/*.dll'
+      dotnet_build_args: '-t:BatchBuild'
