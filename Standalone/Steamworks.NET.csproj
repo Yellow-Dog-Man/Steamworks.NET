@@ -5,6 +5,7 @@
     <RootNamespace>Steamworks</RootNamespace>
     <AssemblyName>Steamworks.NET</AssemblyName>
     <Nullable>annotations</Nullable>
+    <LangVersion>11</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Windows|x86'">
     <OutputPath>bin\x86\Windows\</OutputPath>
