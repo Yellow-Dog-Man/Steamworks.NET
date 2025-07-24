@@ -18,3 +18,4 @@ jobs:
       artifact_name: steamworks-standard
       dotnet_version: 9.0.x
       dotnet_build_path: '**/bin/**/**/**/*.dll'
+      dotnet_build_args: '-t:BatchBuild'
