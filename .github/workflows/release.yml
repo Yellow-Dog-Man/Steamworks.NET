@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        working-directory: ./Standalone
+        working-directory: ./Standalone2.0
     env:
       VERSION: ${{ github.event.release.tag_name }}
     steps:
