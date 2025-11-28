@@ -43,7 +43,7 @@
 				<Properties>Platform=x86;Configuration=OSX-Linux;PackagingBuild=true;TargetFramework=netstandard2.1</Properties>
 			</ToBuilt>
 			<ToBuilt Include="Steamworks.NET.Standard.csproj">
-				<Properties>Platform=arm64;Configuration=OSX-Linux;PackagingBuild=true</Properties>
+				<Properties>Platform=arm64;Configuration=OSX-Linux;PackagingBuild=true;TargetFramework=netstandard2.1</Properties>
 			</ToBuilt>
 			<ToBuilt Include="Steamworks.NET.Standard.csproj">
 				<Properties>
@@ -94,7 +94,7 @@
 			<Content Include="../README.md" Pack="true" PackagePath="" />
 		</ItemGroup>
 		<ItemGroup>
-			<Paths Include="linux-x64;osx-x64;win-x64;linux-x86;osx-x86;win-x86" />
+			<Paths Include="linux-arm64;linux-x64;osx-x64;win-x64;linux-x86;osx-x86;win-x86" />
 		</ItemGroup>
 		<PropertyGroup>
 			<AsmBase>$(ProjectDir)bin\nuget\runtime\lib\</AsmBase>
