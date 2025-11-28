@@ -23,5 +23,10 @@
 		<file src="bin\nuget\runtime\" target="runtimes"/>
 		<file src="bin\ref\*.dll" target="ref\netstandard2.1\"/>
 		<file src="bin\ref\*.dll" target="lib\netstandard2.1\"/>
+
+		<file src="../com.rlabrecque.steamworks.net/plugins/steam_api.dll" target="runtimes/win-x86/native" />
+		<file src="../com.rlabrecque.steamworks.net/plugins/steam_api64.dll" target="runtimes/win-x64/native" />
+		<file src="../com.rlabrecque.steamworks.net/plugins/libsteam_api.so" target="runtimes/linux-x64/native" />
+		<file src="../com.rlabrecque.steamworks.net/plugins/linuxarm64/libsteam_api.so" target="runtimes/linux-arm64/native" />
 	</files>
 </package>
