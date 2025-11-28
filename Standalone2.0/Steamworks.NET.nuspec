@@ -31,5 +31,10 @@
 
 		<file src="bin\ref\net462\*.dll" target="ref\net462\"/>
 		<file src="bin\ref\net462\*.dll" target="lib\net462\"/>
+
+		<file src="../com.rlabrecque.steamworks.net/plugins/steam_api.dll" target="runtimes/win-x86/native" />
+		<file src="../com.rlabrecque.steamworks.net/plugins/steam_api64.dll" target="runtimes/win-x64/native" />
+		<file src="../com.rlabrecque.steamworks.net/plugins/libsteam_api.so" target="runtimes/linux-x64/native" />
+		<file src="../com.rlabrecque.steamworks.net/plugins/linuxarm64/libsteam_api.so" target="runtimes/linux-arm64/native" />
 	</files>
 </package>
