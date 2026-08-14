@@ -22,7 +22,7 @@ jobs:
       - name: 'Build solution'
         uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
         with:
-          dotnet-project-path: 'Standalone/Steamworks.NET.Standard.sln'
+          dotnet-project-path: 'Standalone/Steamworks.NET.sln'
           dotnet-build-args : '-t:BatchBuild'
 
 
