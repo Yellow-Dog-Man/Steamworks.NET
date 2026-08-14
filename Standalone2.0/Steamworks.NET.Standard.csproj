@@ -9,7 +9,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageId>Steamworks.NET</PackageId>
+    <PackageId>YellowDogMan.Steamworks.NET</PackageId>
     <Authors>rlabrecque</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/rlabrecque/Steamworks.NET</PackageProjectUrl>
