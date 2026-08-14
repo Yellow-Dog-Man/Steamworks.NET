@@ -23,7 +23,7 @@ jobs:
         uses: Yellow-Dog-Man/composite-actions-templates/.github/actions/dotnet-build@main
         with:
           dotnet_version: 10.0.x
-          dotnet-project-path 'Standalone/Steamworks.NET.Standard.sln'
+          dotnet-project-path: 'Standalone/Steamworks.NET.Standard.sln'
           dotnet-build-args : '-t:BatchBuild'
 
 
